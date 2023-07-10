@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, ParseUUIDPipe, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CarsService } from './cars.service';
 import { CreateCarDto } from './dto/create-car.dto';
 
 // http://localhost:3000/cars
 @Controller('cars')
+// Para indicar que el Pipe se aplica global al controlador y sus métodos, así no lo copio en cada método
+// @UsePipes( ValidationPipe )
 export class CarsController {
 
     constructor(
@@ -28,6 +30,8 @@ export class CarsController {
     }
 
     @Post()
+    // Para validar el DTO que viene en el body
+    // @UsePipes( ValidationPipe )
     // Se puede cambiar el nombre, aquí se cambio de Body a createCarDto
     createCar( @Body() createCarDto: CreateCarDto ) { // capturar body
         return createCarDto;
