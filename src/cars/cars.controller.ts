@@ -18,7 +18,7 @@ export class CarsController {
     // ':id/:status'
     @Get(':id')
     // ParseIntPipe literalmente cambia el dato a un number
-    getCarById( @Param( 'id', ParseIntPipe ) id: number ) { // Obtener queryParam
+    getCarById( @Param( 'id' ) id: string ) { // Obtener queryParam
         console.log({ id });
         return this.carsService.findOneById( id )
     }
@@ -32,7 +32,8 @@ export class CarsController {
     updateCar( 
         @Param('id', ParseIntPipe) id: number,
         @Body() body: any ) 
-    {
+    {   
+        console.log(id);
         return body;
     }
 
