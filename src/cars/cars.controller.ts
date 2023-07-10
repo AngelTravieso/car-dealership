@@ -34,7 +34,7 @@ export class CarsController {
     // @UsePipes( ValidationPipe )
     // Se puede cambiar el nombre, aquí se cambio de Body a createCarDto
     createCar( @Body() createCarDto: CreateCarDto ) { // capturar body
-        return createCarDto;
+        return this.carsService.create( createCarDto );
     }
 
     @Patch(':id')
