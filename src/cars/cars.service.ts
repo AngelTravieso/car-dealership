@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Car } from './interfaces/car.interface';
 import { v4 as uuid } from 'uuid';
 import { CreateCarDto, UpdateCarDto } from './dto';
@@ -65,7 +65,31 @@ export class CarsService {
 
     update( id: string, updateCarDto: UpdateCarDto ) {
 
+        // Obtener car según el ID que me llega, esto es para validar que exista el ID
+        let carDB = this.findOneById( id );
 
+        // Si en el body viene un ID diferente al que se manda por queryParams arrojo la excepcion (esto es opcional)
+        if( updateCarDto.id && updateCarDto.id !== id ) throw new BadRequestException('Car id is not valid');
+
+        // Barrer mi arreglo de cars
+        this.cars = this.cars.map( car => {
+            // Si el el ID del carro es === al ID que estoy mandando
+            if( car.id === id) {
+
+                carDB = {
+                    ...carDB, // exparsir las propiedades que tenga el carDB (el car de la DB)
+                    // exparsir las propiedades que vengan actualizadas de la petición (esto sobreescribe las propiedades anteriores)
+                    ...updateCarDto, // si aquí viene un ID
+                    id, // este lo sobre escribe, para evitar que me manden algo parecido a un UUID en la petición
+                }
+
+                return carDB;
+            }
+            
+            return car;
+        });
+        
+        return carDB; // carro actualizado
 
     }
 
