@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsString, MinLength } from "class-validator";
 
 export class CreateCarDto {
     // decoradores de class-validator
@@ -9,6 +9,8 @@ export class CreateCarDto {
     readonly brand: string;
 
     @IsString()
+    // El modelo mínimo debe venir con 3 letras
+    // @MinLength(3)
     readonly model: string;
 
 }
