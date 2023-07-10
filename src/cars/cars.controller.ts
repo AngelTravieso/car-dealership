@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
 import { CarsService } from './cars.service';
 
 // http://localhost:3000/cars
@@ -18,7 +18,10 @@ export class CarsController {
     // ':id/:status'
     @Get(':id')
     // ParseIntPipe literalmente cambia el dato a un number
-    getCarById( @Param( 'id' ) id: string ) { // Obtener queryParam
+    // new ParseUUIDPipe({ // se puede personalizar el pipe
+    //     version: '5', // espero que el UUID sea con la version 5
+    // })
+    getCarById( @Param( 'id', ParseUUIDPipe ) id: string ) { // Obtener queryParam
         console.log({ id });
         return this.carsService.findOneById( id )
     }
