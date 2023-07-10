@@ -93,4 +93,16 @@ export class CarsService {
 
     }
 
+
+    delete( id: string ) {
+
+        // verificar si el carro existe
+        // const car = this.findOneById( id );
+        this.findOneById( id );
+
+        // Eliminar carro
+        this.cars = this.cars.filter( car => car.id !== id );
+
+    }
+
 }
