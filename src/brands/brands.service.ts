@@ -15,6 +15,7 @@ export class BrandsService {
     // },
   ];
 
+  
   create(createBrandDto: CreateBrandDto) {
 
     const { name } = createBrandDto;
@@ -30,6 +31,7 @@ export class BrandsService {
     return brand;
   }
 
+
   findAll() {
     return this.brands;
   }
@@ -43,6 +45,7 @@ export class BrandsService {
     return brand;
 
   }
+
 
   update(id: string, updateBrandDto: UpdateBrandDto) {
     
@@ -68,7 +71,14 @@ export class BrandsService {
 
   }
 
+
   remove(id: string) {
     this.brands = this.brands.filter( brand => brand.id !== id )
   }
+
+
+  fillCarsWithSeedData( brands: Brand[] ) {
+    this.brands = brands;
+}
+
 }
