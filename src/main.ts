@@ -2,6 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from './app.module';
+import 'dotenv/config';
+
+const port = process.env.PORT || 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,6 +27,6 @@ async function bootstrap() {
     }),
   )
 
-  await app.listen(3000);
+  await app.listen(port, '0.0.0.0');
 }
 bootstrap();
